@@ -43,10 +43,16 @@ while ($switch -eq $True) {
 
 
 
-        $Comparison = Compare-Object -DifferenceObject $NewList -ReferenceObject $rootBase[$env:COMPUTERNAME]
+        $Comparison = Compare-Object -DifferenceObject $NewList -ReferenceObject $rootBase[$computer]
         $rootBase[$computer] = $NewList
         foreach ($item in $Comparison) {
-            Write-Host $item.InputObject $item.SideIndicator
+            # Write-Host $item.InputObject $item.SideIndicator
+            $Type = $item.InputObject[0]
+            if ($item.SideIndicator -eq "=>") {
+                Write-Host $computer $item.InputObject[0] $item.InputObject[1] "$Type was added in $computer"
+            } elseif ($item.SideIndicator -eq "<=") {
+                Write-Host $computer $item.InputObject[0] $item.InputObject[1] "$Type was removed $computer"
+            }
         }
     }
 }
