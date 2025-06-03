@@ -1,0 +1,5 @@
+## Ignore all PowerShell Files
+*.ps1
+
+## Except the main PowerShell File
+!PowerShell-Differencer.ps1
